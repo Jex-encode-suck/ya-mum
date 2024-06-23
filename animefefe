@@ -1,0 +1,35 @@
+local function onCharacterAdded(character)
+    wait()
+    
+    local humanoid = character:WaitForChild("Humanoid")
+    
+    for _, v in ipairs(humanoid:GetPlayingAnimationTracks()) do
+        v:Stop()
+    end
+    
+    local animate = character:WaitForChild("Animate")
+                    
+    local function setAnimation(animation, animationId)
+        if typeof(animation) == "Instance" and animation:IsA("Animation") then
+            animation.AnimationId = animationId
+        else
+            warn("Failed to set animation:", animationId)
+        end
+    end
+    
+    game.Players.LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
+    setAnimation(animate.idle.Animation1, "http://www.roblox.com/asset/?id=657595757")
+    setAnimation(animate.idle.Animation2, "http://www.roblox.com/asset/?id=657568135")
+    setAnimation(animate.walk.WalkAnim, "http://www.roblox.com/asset/?id=657552124")
+    setAnimation(animate.run.RunAnim, "http://www.roblox.com/asset/?id=657564596")
+    setAnimation(animate.jump.JumpAnim, "http://www.roblox.com/asset/?id=658409194")
+    setAnimation(animate.climb.ClimbAnim, "http://www.roblox.com/asset/?id=658360781")
+    setAnimation(animate.fall.FallAnim, "http://www.roblox.com/asset/?id=657600338")
+    
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+if game.Players.LocalPlayer.Character then
+    onCharacterAdded(game.Players.LocalPlayer.Character)
+end
